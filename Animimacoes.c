@@ -58,7 +58,6 @@ char get_key(void) {
 
     cols = gpio_get_all();
     cols = cols & all_columns_mask;
-    imprimir_binario(cols);
 
     if (cols == 0x0) {
         return 0;
@@ -99,20 +98,6 @@ char get_key(void) {
         return 0;
     }
 }
-/////////////////////////////////////////
-
-//desenhos
-
-
-////////////////////////////////////////
-
-void imprimir_binario(int num) {
-    int i;
-    for (i = 31; i >= 0; i--) {
-    (num & (1 << i)) ? printf("1") : printf("0");
-    }
-}
-
 
 //def intensidade cores
 
@@ -131,22 +116,102 @@ uint32_t matrix_rgb(double b, double r, double g)
 
 void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r, double g, double b){
     for (int16_t i = 0; i < NUM_PIXELS; i++) {
-        if (desenho[24-i] > 0) {
-            valor_led = matrix_rgb(b, r, g);
-        } else {
-            valor_led = matrix_rgb(0.0, 0.0, 0.0);
-        }
+        valor_led = matrix_rgb(b *desenho[24-i], r *desenho[24-i], g *desenho[24-i]);
         pio_sm_put_blocking(pio, sm, valor_led);
-
     }
-    imprimir_binario(valor_led);
 }
+
+/////////////////////////////////////////
+
+//Criar função de cada desenho para ser chamada no switch-case em int main
+
+void batimento_cardiaco(){
+
+    //desenho de 5 movimentos do batimento cardiaco
+
+    double batimento1[NUM_PIXELS] = {
+        0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 1.0, 0.0, 1.0,
+        1.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
+
+        double batimento2[NUM_PIXELS] = {
+        0.0, 0.0, 1.0, 0.0, 1.0,
+        0.0, 0.0, 1.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
+
+        double batimento3[NUM_PIXELS] = {
+        1.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 1.0, 1.0,
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
+
+        double batimento4[NUM_PIXELS] = {
+        0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 1.0, 1.0,
+        1.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
+
+        double batimento5[NUM_PIXELS] = {
+        0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 1.0, 0.0,
+        1.0, 0.0, 1.0, 0.0, 1.0,
+        0.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
+
+    PIO pio = pio0;
+    uint sm = 0;
+    uint32_t valor_led;
+
+    desenho_pio(batimento1, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(batimento2, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(batimento3, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(batimento4, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(batimento5, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+}
+
 
 ////////////////////////////////////////
 
-int main()
-{
+
+int main() {
+    PIO pio = pio0;
+    bool ok;
+    uint32_t valor_led;
+
+    ok = set_sys_clock_khz(128000, false);
+
+    //Inicializa todos os códigos stdio
     stdio_init_all();
+
+    printf("iniciando a transmissão PIO");
+    if (ok) printf("clock set to %ld\n", clock_get_hz(clk_sys));
+
+    //Configurações PIO, quem souber configurar é legal fazer
+
+    //uint offset = pio_add_program(pio, &Animimacoes_program);
+    //uint sm = pio_claim_unused_sm(pio, true);
+    //Animimacoes_program_init(pio, sm, offset, OUT_PIN);
     
     init_keypad(columns, rows, KEY_MAP);
 
@@ -155,14 +220,27 @@ int main()
     while (true) {
             caracter = get_key();
 
-            /*switch (caracter = "A")
-            {
-            case:
-                
+            switch (caracter) {
+            case 'A':
+                /* code */
                 break;
-            
+            case 'B':
+                /* code */
+                break;
+            case 'C':
+                /* code */
+                break;
+            case 'D':
+                /* code */
+                break;
+            case '#':
+                /* code */
+                break;
+            case '1':
+                batimento_cardiaco();
+                break;
             default:
                 break;
-            }*/
+            }
     }
 }

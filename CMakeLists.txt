@@ -54,11 +54,12 @@ target_include_directories(Animimacoes PRIVATE
 )
 
 # Add any user requested libraries
-target_link_libraries(Animimacoes 
+target_link_libraries(Animimacoes
         pico_stdlib
         hardware_pio
         hardware_adc
         pico_bootrom
+        Animimacoes_pio
         )
 
 pico_add_extra_outputs(Animimacoes)
