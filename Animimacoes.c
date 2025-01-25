@@ -253,6 +253,68 @@ void animacao_carinha(){
     desenho_pio(carinha5, valor_led, pio, sm, 1.0, 0.0, 0.0);
     sleep_ms(1000);
 }
+void pulso() {
+    // Animação de pulso
+    double pulso1[NUM_PIXELS] = {
+        0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
+
+    double pulso2[NUM_PIXELS] = {
+        0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.5, 0.0, 0.0,
+        0.0, 0.5, 1.0, 0.5, 0.0,
+        0.0, 0.0, 0.5, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
+
+    double pulso3[NUM_PIXELS] = {
+        0.0, 0.0, 0.5, 0.0, 0.0,
+        0.0, 0.5, 1.0, 0.5, 0.0,
+        0.5, 1.0, 1.0, 1.0, 0.5,
+        0.0, 0.5, 1.0, 0.5, 0.0,
+        0.0, 0.0, 0.5, 0.0, 0.0
+    };
+
+    double pulso4[NUM_PIXELS] = {
+        0.0, 0.5, 1.0, 0.5, 0.0,
+        0.5, 1.0, 1.0, 1.0, 0.5,
+        1.0, 1.0, 1.0, 1.0, 1.0,
+        0.5, 1.0, 1.0, 1.0, 0.5,
+        0.0, 0.5, 1.0, 0.5, 0.0
+    };
+
+    double pulso5[NUM_PIXELS] = {
+        0.0, 0.0, 0.5, 0.0, 0.0,
+        0.0, 0.5, 1.0, 0.5, 0.0,
+        0.5, 1.0, 1.0, 1.0, 0.5,
+        0.0, 0.5, 1.0, 0.5, 0.0,
+        0.0, 0.0, 0.5, 0.0, 0.0
+    };
+
+    PIO pio = pio0;
+    uint sm = 0;
+    uint32_t valor_led;
+
+    desenho_pio(pulso1, valor_led, pio, sm, 1.0, 0.0, 0.0); 
+    sleep_ms(1000);
+
+    desenho_pio(pulso2, valor_led, pio, sm, 1.0, 0.0, 0.0); 
+    sleep_ms(1000);
+
+    desenho_pio(pulso3, valor_led, pio, sm, 1.0, 0.0, 0.0); 
+    sleep_ms(1000);
+
+    desenho_pio(pulso4, valor_led, pio, sm, 1.0, 0.0, 0.0); 
+    sleep_ms(1000);
+
+    desenho_pio(pulso5, valor_led, pio, sm, 1.0, 0.0, 0.0); 
+    sleep_ms(1000);
+}
+
 ////////////////////////////////////////
 
 
@@ -303,7 +365,10 @@ int main() {
                 break;
             case '2':
                 animacao_carinha();
-                break;    
+                break;  
+            case '3':
+                pulso();
+                break;  
             default:
                 break;
             }
