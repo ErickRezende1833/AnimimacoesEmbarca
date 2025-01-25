@@ -190,7 +190,69 @@ void batimento_cardiaco(){
 
 }
 
+void animacao_carinha(){
 
+    // Desenho de 5 carinhas diferentes
+    
+    double carinha1[NUM_PIXELS] = {
+        0.0, 1.0, 1.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        1.0, 0.0, 1.0, 0.0, 1.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        0.0, 1.0, 1.0, 1.0, 0.0
+    };
+
+    double carinha2[NUM_PIXELS] = {
+        0.0, 1.0, 1.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        1.0, 0.0, 1.0, 0.0, 1.0,
+        0.0, 1.0, 1.0, 1.0, 0.0
+    };
+
+    double carinha3[NUM_PIXELS] = {
+        0.0, 1.0, 1.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        1.0, 1.0, 1.0, 1.0, 1.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        0.0, 1.0, 1.0, 1.0, 0.0
+    };
+
+    double carinha4[NUM_PIXELS] = {
+        0.0, 1.0, 1.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        0.0, 1.0, 1.0, 1.0, 0.0
+    };
+
+    double carinha5[NUM_PIXELS] = {
+        0.0, 1.0, 1.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        1.0, 0.0, 1.0, 0.0, 1.0,
+        1.0, 0.0, 0.0, 0.0, 1.0,
+        0.0, 1.0, 0.0, 1.0, 0.0
+    };
+
+    PIO pio = pio0;
+    uint sm = 0;
+    uint32_t valor_led;
+
+    desenho_pio(carinha1, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(carinha2, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(carinha3, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(carinha4, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(carinha5, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+}
 ////////////////////////////////////////
 
 
@@ -239,8 +301,12 @@ int main() {
             case '1':
                 batimento_cardiaco();
                 break;
+            case '2':
+                animacao_carinha();
+                break;    
             default:
                 break;
             }
     }
 }
+
