@@ -314,6 +314,66 @@ void pulso() {
     desenho_pio(pulso5, valor_led, pio, sm, 1.0, 0.0, 0.0); 
     sleep_ms(1000);
 }
+void love(){
+
+    //desenho love
+
+    double love1[NUM_PIXELS] =
+    {1.0, 0.0, 0.0, 0.0, 0.0,
+     1.0, 0.0, 0.0, 0.0, 0.0,
+     1.0, 0.0, 0.0, 0.0, 0.0,
+     1.0, 0.0, 0.0, 0.0, 0.0,
+     1.0, 1.0, 1.0, 1.0, 1.0};
+    
+    double love2[NUM_PIXELS] =
+    {0.0, 1.0, 1.0, 1.0, 0.0,
+     1.0, 0.0, 0.0, 0.0, 1.0,
+     1.0, 0.0, 0.0, 0.0, 1.0,
+     1.0, 0.0, 0.0, 0.0, 1.0,
+     0.0, 1.0, 1.0, 1.0, 0.0};
+
+    double love3[NUM_PIXELS] =
+    {1.0, 0.0, 0.0, 0.0, 1.0,
+     1.0, 0.0, 0.0, 0.0, 1.0,
+     1.0, 0.0, 0.0, 0.0, 1.0,
+     0.0, 1.0, 0.0, 1.0, 0.0,
+     0.0, 0.0, 1.0, 0.0, 0.0};
+
+    double love4[NUM_PIXELS] =
+    {1.0, 1.0, 1.0, 1.0, 1.0,
+     1.0, 0.0, 0.0, 0.0, 0.0,
+     1.0, 1.0, 1.0, 1.0, 1.0,
+     1.0, 0.0, 0.0, 0.0, 0.0,
+     1.0, 1.0, 1.0, 1.0, 1.0};
+
+    double love5[NUM_PIXELS] =
+    {0.0, 1.0, 0.0, 1.0, 0.0,
+     1.0, 1.0, 1.0, 1.0, 1.0,
+     1.0, 1.0, 1.0, 1.0, 1.0,
+     0.0, 1.0, 1.0, 1.0, 0.0,
+     0.0, 0.0, 1.0, 0.0, 0.0};
+    
+    PIO pio = pio0;
+    uint sm = 0;
+    uint32_t valor_led;
+
+    desenho_pio(love1, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(love2, valor_led, pio, sm, 0.0, 1.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(love3, valor_led, pio, sm, 0.0, 0.0, 1.0);
+    sleep_ms(1000);
+
+    desenho_pio(love4, valor_led, pio, sm, 0.0, 1.0, 0.0);
+    sleep_ms(1000);
+
+    desenho_pio(love5, valor_led, pio, sm, 1.0, 0.0, 0.0);
+    sleep_ms(1000);
+
+
+}
 
 ////////////////////////////////////////
 
@@ -368,7 +428,9 @@ int main() {
                 break;  
             case '3':
                 pulso();
-                break;  
+                break; 
+            case '4':
+                love(); 
             default:
                 break;
             }
