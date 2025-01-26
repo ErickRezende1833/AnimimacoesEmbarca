@@ -11,7 +11,7 @@
 
 #define NUM_PIXELS 25
 
-#define OUT_PIN 10
+#define OUT_PIN 7
 
 // variável de intensidade padrão dos LEDs
 double intensity = 0.2;
@@ -20,7 +20,7 @@ double intensity = 0.2;
 uint8_t r = 0, g = 0, b = 255;
 
 // keypad////////////////////////////////////////////
-uint columns[4] = {6, 7, 8, 9};
+uint columns[4] = {6, 8, 9, 10};
 uint rows[4] = {2, 3, 4, 5};
 
 char KEY_MAP[16] = {
