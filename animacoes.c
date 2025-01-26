@@ -120,21 +120,19 @@ char get_key(void)
 }
 
 // função que realiza o reboot do dispositivo em modo BOOTSEL
-void do_bootsel() 
+void do_bootsel()
 {
     printf("Entrando em modo bootsel...");
     rom_reset_usb_boot_extra(-1, 0, false);
 }
 
-//matriz padrão para usar nos casos A, B, C, D e #
+// matriz padrão para usar nos casos A, B, C, D e #
 double padrao[NUM_PIXELS] = {
     1.0, 1.0, 1.0, 1.0, 1.0,
     1.0, 1.0, 1.0, 1.0, 1.0,
     1.0, 1.0, 1.0, 1.0, 1.0,
     1.0, 1.0, 1.0, 1.0, 1.0,
-    1.0, 1.0, 1.0, 1.0, 1.0
-};
-
+    1.0, 1.0, 1.0, 1.0, 1.0};
 
 // def intensidade cores
 
@@ -164,57 +162,54 @@ void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r
 
 // Criar função de cada desenho para ser chamada no switch-case em int main
 
-void batimento_cardiaco(){
+void batimento_cardiaco()
+{
 
-    //desenho de 5 movimentos do batimento cardiaco
+    // desenho de 5 movimentos do batimento cardiaco
 
     double batimento1[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 1.0, 0.0, 0.0,
         1.0, 1.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0
-    };
+        0.0, 0.0, 0.0, 0.0, 0.0};
 
-        double batimento2[NUM_PIXELS] = {
+    double batimento2[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0, 1.0,
         0.0, 1.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0
-    };
+        0.0, 0.0, 0.0, 0.0, 0.0};
 
-        double batimento3[NUM_PIXELS] = {
+    double batimento3[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0
-    };
+        0.0, 0.0, 0.0, 0.0, 0.0};
 
-        double batimento4[NUM_PIXELS] = {
+    double batimento4[NUM_PIXELS] = {
         0.0, 0.0, 1.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0
-    };
+        0.0, 0.0, 0.0, 0.0, 0.0};
 
-        double batimento5[NUM_PIXELS] = {
+    double batimento5[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 1.0, 0.0, 1.0,
         0.0, 1.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0
-    };
-
+        0.0, 0.0, 0.0, 0.0, 0.0};
 
     PIO pio = pio0;
     uint sm = 0;
     uint32_t valor_led;
-    
-    while(true){
-        do {
+
+    while (true)
+    {
+        do
+        {
             desenho_pio(batimento1, valor_led, pio, sm, 1.0, 0.0, 0.0);
             sleep_ms(1000);
 
@@ -230,7 +225,7 @@ void batimento_cardiaco(){
             desenho_pio(batimento5, valor_led, pio, sm, 1.0, 0.0, 0.0);
             sleep_ms(1000);
         } while (get_key() == '1');
-        
+
         break;
     }
 }
@@ -420,6 +415,8 @@ uint32_t spiral_animation_frames[26] = {
     0x00FFFFF, 0x10FFFFF, 0x18FFFFF, 0x1CFFFFF, 0x1EFFFFF,
     0x1FFFFFF};
 
+uint32_t spiral_animation_clear[1] = {0x0000000};
+
 // função para configurar a intensidade dos leds em cada frame
 double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double intensity)
 {
@@ -469,10 +466,8 @@ void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, u
 }
 
 // função da animação espiral
-void spiral_animation()
+void spiral_animation(PIO pio, uint sm)
 {
-    PIO pio = pio0;
-    uint sm = 0;
 
     size_t size_spiral_animation = sizeof(spiral_animation_frames) / sizeof(uint32_t);
     for (size_t i = 0; i < size_spiral_animation; i++)
@@ -485,6 +480,7 @@ void spiral_animation()
         uint_desenho_pio(apply_intensity_frame_pio(spiral_animation_frames[i], size_spiral_animation, intensity), pio, sm, r, g, b);
         sleep_ms(100);
     }
+    uint_desenho_pio(apply_intensity_frame_pio(spiral_animation_clear[0], size_spiral_animation, intensity), pio, sm, r, g, b);
 }
 
 ////////////////////////////////////////
@@ -521,21 +517,22 @@ int main()
         switch (caracter)
         {
         case 'A':
-            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.0, 0.0); //Desliga todos os leds
+            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.0, 0.0); // Desliga todos os leds
             break;
         case 'B':
-            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.0, 1.0); //LED azul em 100%
+            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.0, 1.0); // LED azul em 100%
             break;
         case 'C':
-            desenho_pio(padrao, valor_led, pio, sm, 0.8, 0.0, 0.0);; //LED vermelho em 80%
+            desenho_pio(padrao, valor_led, pio, sm, 0.8, 0.0, 0.0);
+            ; // LED vermelho em 80%
             break;
         case 'D':
-            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.5, 0.0); //LED verde em 50%
+            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.5, 0.0); // LED verde em 50%
             break;
         case '#':
-            desenho_pio(padrao, valor_led, pio, sm, 0.2, 0.2, 0.2); //LEDs brancos em 20%
+            desenho_pio(padrao, valor_led, pio, sm, 0.2, 0.2, 0.2); // LEDs brancos em 20%
             break;
-                 case '*':
+        case '*':
             do_bootsel();
             break;
         case '1':
@@ -551,7 +548,7 @@ int main()
             love();
             break;
         case '5':
-            spiral_animation();
+            spiral_animation(pio, sm);
             break;
         default:
             break;
