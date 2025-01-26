@@ -1,9 +1,12 @@
-
+#include "pico/stdlib.h"
+#include "hardware/pio.h"
+#include <stdlib.h>
 
 #ifndef NUM_PIXELS
 #define NUM_PIXELS 25
 #endif
 
+// variável que representa o valor padrão da intensidade dos LEDs da matriz
 double intensity = 0.2;
 
 // variável que define a cor RGB padrão dos LEDs
@@ -20,8 +23,7 @@ uint32_t spiral_animation_frames[26] = {
 
 uint32_t spiral_animation_clear[1] = {0x0000000};
 
-// função para configurar a intensidade dos leds em cada frame
-double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double intensity)
+ double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double intensity)
 {
     double *frames = (double *)calloc(total_frames, sizeof(double));
     size_t counter = 0;
@@ -48,8 +50,7 @@ double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double in
     return frames;
 }
 
-// função para converter a cor RGB em binário
-uint32_t uint_matrix_rgb(uint8_t r, uint8_t g, uint8_t b)
+ uint32_t uint_matrix_rgb(uint8_t r, uint8_t g, uint8_t b)
 {
     // printf("%b\n", ((uint32_t)(r) << 16) | ((uint32_t)(g) << 24) | (uint32_t)(b << 8));
     return ((uint32_t)(r) << 16) |
@@ -57,8 +58,7 @@ uint32_t uint_matrix_rgb(uint8_t r, uint8_t g, uint8_t b)
            (uint32_t)(b << 8);
 }
 
-// função para aplicar cor aos leds conforme valores RGBs definidos pelo usuário e a intensidade prefedenida no frame
-void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, uint8_t b)
+ void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, uint8_t b)
 {
     for (size_t i = 0; i < NUM_PIXELS; ++i)
     {
@@ -68,8 +68,7 @@ void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, u
     }
 }
 
-// função da animação espiral
-void spiral_animation(PIO pio, uint sm)
+ void spiral_animation(PIO pio, uint sm)
 {
     size_t size_spiral_animation = sizeof(spiral_animation_frames) / sizeof(uint32_t);
     for (size_t i = 0; i < size_spiral_animation; i++)

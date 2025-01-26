@@ -2,6 +2,7 @@
 #define SPIRAL
 
 #include "hardware/pio.h"
+#include "pico/stdlib.h" 
 
 // função para configurar a intensidade dos leds em cada frame
 double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double intensity);
