@@ -415,6 +415,17 @@ double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double in
     return frames;
 }
 
+// função para aplicar cor aos leds conforme valores RGBs definidos pelo usuário e a intensidade prefedenida no frame
+void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, uint8_t b)  
+{
+    for (size_t i = 0; i < NUM_PIXELS; ++i)
+    {
+        // printf("%.1f\n", desenho[(NUM_PIXELS-1) - i]);
+        uint32_t valor_led = uint_matrix_rgb(desenho[(NUM_PIXELS - 1) - i] * r, desenho[(NUM_PIXELS - 1) - i] * g, desenho[(NUM_PIXELS - 1) - i] * b);
+        pio_sm_put_blocking(pio, sm, valor_led);
+    }
+}
+
 ////////////////////////////////////////
 
 int main()
