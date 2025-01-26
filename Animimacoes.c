@@ -388,7 +388,26 @@ uint32_t spiral_animation_frames[26] = {
 double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double intensity)
 {
     double *frames = (double *)calloc(total_frames, sizeof(double));
-    
+    size_t counter = 0;
+
+    for (size_t j = 0; j < NUM_PIXELS; j++)
+    {
+        int binary = (int)frame & (0x1 << ((NUM_PIXELS - j) - 1));
+        // printf("%025b\t\t\t %d\n", binary, binary);
+
+        if (binary > 0)
+        {
+            frames[counter] = 0.2;
+        }
+        else
+        {
+            frames[counter] = 0.0;
+        }
+        // printf("%1b\t %.1f\n", binary, frames[counter]);
+        // printf("%.5f\n", frames[counter]);
+
+        counter++;
+    }
     free(frames);
     return frames;
 }
