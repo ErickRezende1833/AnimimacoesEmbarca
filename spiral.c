@@ -1,5 +1,9 @@
 
 
+#ifndef NUM_PIXELS
+#define NUM_PIXELS 25
+#endif
+
 double intensity = 0.2;
 
 // variável que define a cor RGB padrão dos LEDs
