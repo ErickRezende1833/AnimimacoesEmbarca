@@ -441,7 +441,7 @@ void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, u
 }
 
 // função da animação espiral
-void spiral_animation()
+void spiral_animation(PIO pio, uint sm)
 {
     size_t size_spiral_animation = sizeof(spiral_animation_frames) / sizeof(uint32_t);
     for (size_t i = 0; i < size_spiral_animation; i++)
@@ -516,7 +516,7 @@ int main()
         case '4':
             love();
         case '5':
-            spiral_animation();
+            spiral_animation(pio,sm);
             break;
         default:
             break;
