@@ -119,6 +119,13 @@ char get_key(void)
     }
 }
 
+// função que realiza o reboot do dispositivo em modo BOOTSEL
+void do_bootsel() 
+{
+    printf("Entrando em modo bootsel...");
+    rom_reset_usb_boot_extra(-1, 0, false);
+}
+
 //matriz padrão para usar nos casos A, B, C, D e #
 double padrao[NUM_PIXELS] = {
     1.0, 1.0, 1.0, 1.0, 1.0,
@@ -527,6 +534,9 @@ int main()
             break;
         case '#':
             desenho_pio(padrao, valor_led, pio, sm, 0.2, 0.2, 0.2); //LEDs brancos em 20%
+            break;
+                 case '*':
+            do_bootsel();
             break;
         case '1':
             batimento_cardiaco();
