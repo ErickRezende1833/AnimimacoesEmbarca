@@ -59,7 +59,6 @@ target_link_libraries(Animimacoes
         hardware_pio
         hardware_adc
         pico_bootrom
-        Animimacoes_pio
         )
 
 pico_add_extra_outputs(Animimacoes)

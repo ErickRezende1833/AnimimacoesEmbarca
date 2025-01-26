@@ -137,7 +137,7 @@ void batimento_cardiaco(){
         0.0, 0.0, 0.0, 0.0, 0.0
     };
 
-        double batimento2[NUM_PIXELS] = {
+    double batimento2[NUM_PIXELS] = {
         0.0, 0.0, 1.0, 0.0, 1.0,
         0.0, 0.0, 1.0, 0.0, 0.0,
         0.0, 1.0, 0.0, 1.0, 0.0,
@@ -145,7 +145,7 @@ void batimento_cardiaco(){
         0.0, 0.0, 0.0, 0.0, 0.0
     };
 
-        double batimento3[NUM_PIXELS] = {
+    double batimento3[NUM_PIXELS] = {
         1.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 1.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0, 0.0,
@@ -153,7 +153,7 @@ void batimento_cardiaco(){
         0.0, 0.0, 0.0, 0.0, 0.0
     };
 
-        double batimento4[NUM_PIXELS] = {
+    double batimento4[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 1.0, 1.0,
@@ -161,13 +161,14 @@ void batimento_cardiaco(){
         0.0, 0.0, 0.0, 0.0, 0.0
     };
 
-        double batimento5[NUM_PIXELS] = {
+    double batimento5[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 1.0, 0.0, 1.0,
         0.0, 1.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 0.0, 0.0
     };
+
 
     PIO pio = pio0;
     uint sm = 0;
