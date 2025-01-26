@@ -11,17 +11,6 @@
 
 #define OUT_PIN 7
 
-// Programa PIO para animações de LED
-static const struct pio_program led_animation_program = {
-    .instructions = (uint16_t[]) {
-        0xe449, // set pins
-        0x6000, // out pins
-        0x0010  // pull 
-    },
-    .length = 3,
-    .origin = -1
-};
-
 
 //keypad////////////////////////////////////////////
 uint columns[4] = {6, 7, 8, 9}; 
@@ -133,24 +122,6 @@ void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r
 }
 
 /////////////////////////////////////////
-
-// Função de inicialização do programa PIO
-static inline void pio_led_program_init(PIO pio, uint sm, uint offset, uint pin) {
-    pio_gpio_init(pio, pin);
-    
-    pio_sm_config c = pio_get_default_sm_config();
-    
-    sm_config_set_out_pins(&c, pin, 1);
-    sm_config_set_set_pins(&c, pin, 1);
-    
-    sm_config_set_clkdiv(&c, 10.0);
-    
-    pio_sm_init(pio, sm, offset, &c);
-    
-    pio_sm_set_enabled(pio, sm, true);
-}
-
-
 
 //Criar função de cada desenho para ser chamada no switch-case em int main
 
@@ -423,9 +394,9 @@ int main() {
 
     //Configurações PIO, quem souber configurar é legal fazer
 
-    uint offset = pio_add_program(pio, &led_animation_program);
-    uint sm = pio_claim_unused_sm(pio, true);
-    pio_led_program_init(pio, sm, offset, OUT_PIN);
+    //uint offset = pio_add_program(pio, &Animimacoes_program);
+    //uint sm = pio_claim_unused_sm(pio, true);
+    //Animimacoes_program_init(pio, sm, offset, OUT_PIN);
     
     init_keypad(columns, rows, KEY_MAP);
 
@@ -435,45 +406,21 @@ int main() {
             caracter = get_key();
 
             switch (caracter) {
-            case 'A': 
-            // Desligar todos LEDs
-            for(int i = 0; i < NUM_PIXELS; i++) {
-                valor_led = matrix_rgb(0.0, 0.0, 0.0);
-                pio_sm_put_blocking(pio, sm, valor_led);
-            }
-            break;
-        
-        case 'B':
-            // Azul 100%
-            for(int i = 0; i < NUM_PIXELS; i++) {
-                valor_led = matrix_rgb(0.0, 0.0, 1.0);
-                pio_sm_put_blocking(pio, sm, valor_led);
-            }
-            break;
-        
-        case 'C':
-            // Vermelho 80%
-            for(int i = 0; i < NUM_PIXELS; i++) {
-                valor_led = matrix_rgb(0.8, 0.0, 0.0);
-                pio_sm_put_blocking(pio, sm, valor_led);
-            }
-            break;
-        
-        case 'D':
-            // Verde 50%
-            for(int i = 0; i < NUM_PIXELS; i++) {
-                valor_led = matrix_rgb(0.0, 0.5, 0.0);
-                pio_sm_put_blocking(pio, sm, valor_led);
-            }
-            break;
-        
-        case '#':
-            // Branco 20%
-            for(int i = 0; i < NUM_PIXELS; i++) {
-                valor_led = matrix_rgb(0.2, 0.2, 0.2);
-                pio_sm_put_blocking(pio, sm, valor_led);
-            }
-            break;
+            case 'A':
+                /* code */
+                break;
+            case 'B':
+                /* code */
+                break;
+            case 'C':
+                /* code */
+                break;
+            case 'D':
+                /* code */
+                break;
+            case '#':
+                /* code */
+                break;
             case '1':
                 batimento_cardiaco();
                 break;
@@ -490,4 +437,3 @@ int main() {
             }
     }
 }
-
