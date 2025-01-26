@@ -24,7 +24,7 @@ static const struct pio_program led_animation_program = {
 
 
 //keypad////////////////////////////////////////////
-uint columns[4] = {6, 7, 8, 9}; 
+uint columns[4] = {6, 8, 9, 10}; 
 uint rows[4] = {2, 3, 4, 5};
 
 char KEY_MAP[16] = {
