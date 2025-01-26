@@ -11,6 +11,9 @@
 
 #define OUT_PIN 7
 
+// variável de intensidade padrão dos leds
+double intensity = 0.2; 
+
 // keypad////////////////////////////////////////////
 uint columns[4] = {6, 7, 8, 9};
 uint rows[4] = {2, 3, 4, 5};
