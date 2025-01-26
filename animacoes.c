@@ -7,12 +7,14 @@
 #include "hardware/adc.h"
 #include "pico/bootrom.h"
 
+#include "animacoes.pio.h"
+
 #define NUM_PIXELS 25
 
 #define OUT_PIN 7
 
 // variável de intensidade padrão dos LEDs
-double intensity = 0.2; 
+double intensity = 0.2;
 
 // variável que define a cor RGB padrão dos LEDs
 uint8_t r = 0, g = 0, b = 255;
@@ -418,23 +420,39 @@ double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double in
     return frames;
 }
 
-// função para converter a cor RGB em binário 
+// função para converter a cor RGB em binário
 uint32_t uint_matrix_rgb(uint8_t r, uint8_t g, uint8_t b)
 {
-   // printf("%b\n", ((uint32_t)(r) << 16) | ((uint32_t)(g) << 24) | (uint32_t)(b << 8));
+    // printf("%b\n", ((uint32_t)(r) << 16) | ((uint32_t)(g) << 24) | (uint32_t)(b << 8));
     return ((uint32_t)(r) << 16) |
            ((uint32_t)(g) << 24) |
            (uint32_t)(b << 8);
 }
 
 // função para aplicar cor aos leds conforme valores RGBs definidos pelo usuário e a intensidade prefedenida no frame
-void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, uint8_t b)  
+void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, uint8_t b)
 {
     for (size_t i = 0; i < NUM_PIXELS; ++i)
     {
         // printf("%.1f\n", desenho[(NUM_PIXELS-1) - i]);
         uint32_t valor_led = uint_matrix_rgb(desenho[(NUM_PIXELS - 1) - i] * r, desenho[(NUM_PIXELS - 1) - i] * g, desenho[(NUM_PIXELS - 1) - i] * b);
         pio_sm_put_blocking(pio, sm, valor_led);
+    }
+}
+
+// função da animação espiral
+void spiral_animation()
+{
+    size_t size_spiral_animation = sizeof(spiral_animation_frames) / sizeof(uint32_t);
+    for (size_t i = 0; i < size_spiral_animation; i++)
+    {
+        uint_desenho_pio(apply_intensity_frame_pio(spiral_animation_frames[i], size_spiral_animation, intensity), pio, sm, r, g, b);
+        sleep_ms(100);
+    }
+    for (size_t i = (size_spiral_animation - 1); i > 0; i--)
+    {
+        uint_desenho_pio(apply_intensity_frame_pio(spiral_animation_frames[i], size_spiral_animation, intensity), pio, sm, r, g, b);
+        sleep_ms(100);
     }
 }
 
@@ -457,9 +475,9 @@ int main()
 
     // Configurações PIO, quem souber configurar é legal fazer
 
-    // uint offset = pio_add_program(pio, &Animimacoes_program);
-    // uint sm = pio_claim_unused_sm(pio, true);
-    // Animimacoes_program_init(pio, sm, offset, OUT_PIN);
+     uint offset = pio_add_program(pio, &animacoes_program);
+     uint sm = pio_claim_unused_sm(pio, true);
+     animacoes_program_init(pio, sm, offset, OUT_PIN);
 
     init_keypad(columns, rows, KEY_MAP);
 
@@ -497,6 +515,9 @@ int main()
             break;
         case '4':
             love();
+        case '5':
+            spiral_animation();
+            break;
         default:
             break;
         }

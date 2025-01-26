@@ -28,38 +28,40 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(Animimacoes C CXX ASM)
+project(animacoes C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(Animimacoes Animimacoes.c )
+add_executable(animacoes animacoes.c )
 
-pico_set_program_name(Animimacoes "Animimacoes")
-pico_set_program_version(Animimacoes "0.1")
+pico_set_program_name(animacoes "animacoes")
+pico_set_program_version(animacoes "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(Animimacoes 1)
-pico_enable_stdio_usb(Animimacoes 1)
+pico_enable_stdio_uart(animacoes 1)
+pico_enable_stdio_usb(animacoes 1)
+
+pico_generate_pio_header(animacoes ${CMAKE_CURRENT_LIST_DIR}/animacoes.pio)
 
 # Add the standard library to the build
-target_link_libraries(Animimacoes
+target_link_libraries(animacoes
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(Animimacoes PRIVATE
+target_include_directories(animacoes PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(Animimacoes
+target_link_libraries(animacoes
         pico_stdlib
         hardware_pio
         hardware_adc
         pico_bootrom
         )
 
-pico_add_extra_outputs(Animimacoes)
+pico_add_extra_outputs(animacoes)
 
