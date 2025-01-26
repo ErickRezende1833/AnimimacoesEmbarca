@@ -11,7 +11,7 @@
 
 #define NUM_PIXELS 25
 
-#define OUT_PIN 7
+#define OUT_PIN 10
 
 // variável de intensidade padrão dos LEDs
 double intensity = 0.2;
@@ -441,8 +441,11 @@ void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, u
 }
 
 // função da animação espiral
-void spiral_animation(PIO pio, uint sm)
+void spiral_animation()
 {
+    PIO pio = pio0;
+    uint sm = 0;
+
     size_t size_spiral_animation = sizeof(spiral_animation_frames) / sizeof(uint32_t);
     for (size_t i = 0; i < size_spiral_animation; i++)
     {
@@ -475,9 +478,9 @@ int main()
 
     // Configurações PIO, quem souber configurar é legal fazer
 
-     uint offset = pio_add_program(pio, &animacoes_program);
-     uint sm = pio_claim_unused_sm(pio, true);
-     animacoes_program_init(pio, sm, offset, OUT_PIN);
+    uint offset = pio_add_program(pio, &animacoes_program);
+    uint sm = pio_claim_unused_sm(pio, true);
+    animacoes_program_init(pio, sm, offset, OUT_PIN);
 
     init_keypad(columns, rows, KEY_MAP);
 
@@ -516,7 +519,7 @@ int main()
         case '4':
             love();
         case '5':
-            spiral_animation(pio,sm);
+            spiral_animation();
             break;
         default:
             break;

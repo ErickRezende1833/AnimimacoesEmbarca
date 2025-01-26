@@ -50,7 +50,6 @@
   "connections": [
     [ "pico:GP0", "$serialMonitor:RX", "", [] ],
     [ "pico:GP1", "$serialMonitor:TX", "", [] ],
-    [ "pico:GP7", "rgb1:DIN", "green", [ "h-54.05", "v-3.25" ] ],
     [ "gnd1:GND", "rgb1:VSS", "black", [ "v0" ] ],
     [ "rgb1:DOUT", "rgb2:DIN", "green", [ "h-19.2", "v-10.5" ] ],
     [ "rgb2:DOUT", "rgb3:DIN", "green", [ "h-19.2", "v-10.5" ] ],
@@ -145,9 +144,10 @@
     [ "keypad1:R3", "pico:GP4", "green", [ "v0" ] ],
     [ "keypad1:R4", "pico:GP5", "green", [ "v0" ] ],
     [ "keypad1:C1", "pico:GP6", "green", [ "v0" ] ],
-    [ "keypad1:C2", "pico:GP8", "green", [ "v0" ] ],
-    [ "keypad1:C3", "pico:GP9", "green", [ "v0" ] ],
-    [ "keypad1:C4", "pico:GP10", "green", [ "v201.6", "h230.1" ] ]
+    [ "rgb1:DIN", "pico:GP10", "green", [ "h114.4", "v-192" ] ],
+    [ "keypad1:C2", "pico:GP7", "green", [ "v0" ] ],
+    [ "keypad1:C3", "pico:GP8", "green", [ "v0" ] ],
+    [ "keypad1:C4", "pico:GP9", "green", [ "v0" ] ]
   ],
   "dependencies": {}
 }

@@ -1,4 +1,4 @@
 [wokwi]
 version = 1
-firmware = 'build/Animimacoes.hex'
-elf = 'build/Animimacoes.elf'
+firmware = 'build/animacoes.hex'
+elf = 'build/animacoes.elf'
