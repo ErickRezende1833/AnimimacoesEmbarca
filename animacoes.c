@@ -119,6 +119,16 @@ char get_key(void)
     }
 }
 
+//matriz padrão para usar nos casos A, B, C, D e #
+double padrao[NUM_PIXELS] = {
+    1.0, 1.0, 1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0, 1.0, 1.0
+};
+
+
 // def intensidade cores
 
 uint32_t matrix_rgb(double b, double r, double g)
@@ -147,64 +157,75 @@ void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r
 
 // Criar função de cada desenho para ser chamada no switch-case em int main
 
-void batimento_cardiaco()
-{
+void batimento_cardiaco(){
 
-    // desenho de 5 movimentos do batimento cardiaco
+    //desenho de 5 movimentos do batimento cardiaco
 
     double batimento1[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 1.0, 0.0, 0.0,
         1.0, 1.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0};
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
 
-    double batimento2[NUM_PIXELS] = {
+        double batimento2[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0, 1.0,
         0.0, 1.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0};
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
 
-    double batimento3[NUM_PIXELS] = {
+        double batimento3[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0};
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
 
-    double batimento4[NUM_PIXELS] = {
+        double batimento4[NUM_PIXELS] = {
         0.0, 0.0, 1.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0};
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
 
-    double batimento5[NUM_PIXELS] = {
+        double batimento5[NUM_PIXELS] = {
         0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 1.0, 0.0, 1.0,
         0.0, 1.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0};
+        0.0, 0.0, 0.0, 0.0, 0.0
+    };
+
 
     PIO pio = pio0;
     uint sm = 0;
     uint32_t valor_led;
+    
+    while(true){
+        do {
+            desenho_pio(batimento1, valor_led, pio, sm, 1.0, 0.0, 0.0);
+            sleep_ms(1000);
 
-    desenho_pio(batimento1, valor_led, pio, sm, 1.0, 0.0, 0.0);
-    sleep_ms(1000);
+            desenho_pio(batimento2, valor_led, pio, sm, 1.0, 0.0, 0.0);
+            sleep_ms(1000);
 
-    desenho_pio(batimento2, valor_led, pio, sm, 1.0, 0.0, 0.0);
-    sleep_ms(1000);
+            desenho_pio(batimento3, valor_led, pio, sm, 1.0, 0.0, 0.0);
+            sleep_ms(1000);
 
-    desenho_pio(batimento3, valor_led, pio, sm, 1.0, 0.0, 0.0);
-    sleep_ms(1000);
+            desenho_pio(batimento4, valor_led, pio, sm, 1.0, 0.0, 0.0);
+            sleep_ms(1000);
 
-    desenho_pio(batimento4, valor_led, pio, sm, 1.0, 0.0, 0.0);
-    sleep_ms(1000);
-
-    desenho_pio(batimento5, valor_led, pio, sm, 1.0, 0.0, 0.0);
-    sleep_ms(1000);
+            desenho_pio(batimento5, valor_led, pio, sm, 1.0, 0.0, 0.0);
+            sleep_ms(1000);
+        } while (get_key() == '1');
+        
+        break;
+    }
 }
 
 void animacao_carinha()
@@ -493,19 +514,19 @@ int main()
         switch (caracter)
         {
         case 'A':
-            /* code */
+            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.0, 0.0); //Desliga todos os leds
             break;
         case 'B':
-            /* code */
+            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.0, 1.0); //LED azul em 100%
             break;
         case 'C':
-            /* code */
+            desenho_pio(padrao, valor_led, pio, sm, 0.8, 0.0, 0.0);; //LED vermelho em 80%
             break;
         case 'D':
-            /* code */
+            desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.5, 0.0); //LED verde em 50%
             break;
         case '#':
-            /* code */
+            desenho_pio(padrao, valor_led, pio, sm, 0.2, 0.2, 0.2); //LEDs brancos em 20%
             break;
         case '1':
             batimento_cardiaco();
