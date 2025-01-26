@@ -415,6 +415,16 @@ double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double in
     return frames;
 }
 
+// função para converter a cor RGB em binário 
+uint32_t uint_matrix_rgb(uint8_t r, uint8_t g, uint8_t b)
+{
+   // printf("%b\n", ((uint32_t)(r) << 16) | ((uint32_t)(g) << 24) | (uint32_t)(b << 8));
+
+    return ((uint32_t)(r) << 16) |
+           ((uint32_t)(g) << 24) |
+           (uint32_t)(b << 8);
+}
+
 // função para aplicar cor aos leds conforme valores RGBs definidos pelo usuário e a intensidade prefedenida no frame
 void uint_desenho_pio(double *desenho, PIO pio, uint sm, uint8_t r, uint8_t g, uint8_t b)  
 {
