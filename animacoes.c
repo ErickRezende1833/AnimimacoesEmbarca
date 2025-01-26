@@ -539,6 +539,7 @@ int main()
             break;
         case '4':
             love();
+            break;
         case '5':
             spiral_animation();
             break;
