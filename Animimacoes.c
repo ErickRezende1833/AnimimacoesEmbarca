@@ -11,8 +11,11 @@
 
 #define OUT_PIN 7
 
-// variável de intensidade padrão dos leds
+// variável de intensidade padrão dos LEDs
 double intensity = 0.2; 
+
+// variável que define a cor RGB padrão dos LEDs
+uint8_t r = 0, g = 0, b = 255;
 
 // keypad////////////////////////////////////////////
 uint columns[4] = {6, 7, 8, 9};
@@ -419,7 +422,6 @@ double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double in
 uint32_t uint_matrix_rgb(uint8_t r, uint8_t g, uint8_t b)
 {
    // printf("%b\n", ((uint32_t)(r) << 16) | ((uint32_t)(g) << 24) | (uint32_t)(b << 8));
-
     return ((uint32_t)(r) << 16) |
            ((uint32_t)(g) << 24) |
            (uint32_t)(b << 8);
