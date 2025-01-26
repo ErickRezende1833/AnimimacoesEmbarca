@@ -500,8 +500,6 @@ int main()
     if (ok)
         printf("clock set to %ld\n", clock_get_hz(clk_sys));
 
-    // Configurações PIO, quem souber configurar é legal fazer
-
     uint offset = pio_add_program(pio, &animacoes_program);
     uint sm = pio_claim_unused_sm(pio, true);
     animacoes_program_init(pio, sm, offset, OUT_PIN);
@@ -523,8 +521,7 @@ int main()
             desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.0, 1.0); // LED azul em 100%
             break;
         case 'C':
-            desenho_pio(padrao, valor_led, pio, sm, 0.8, 0.0, 0.0);
-            ; // LED vermelho em 80%
+            desenho_pio(padrao, valor_led, pio, sm, 0.8, 0.0, 0.0); // LED vermelho em 80%
             break;
         case 'D':
             desenho_pio(padrao, valor_led, pio, sm, 0.0, 0.5, 0.0); // LED verde em 50%
@@ -554,4 +551,7 @@ int main()
             break;
         }
     }
+
+    // remove o animacoes_program e libera a máquina de estados quando não estiver mais em uso
+    pio_remove_program_and_unclaim_sm(&animacoes_program, pio, sm, offset);
 }
