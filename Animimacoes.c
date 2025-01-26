@@ -384,11 +384,13 @@ uint32_t spiral_animation_frames[26] = {
     0x00FFFFF, 0x10FFFFF, 0x18FFFFF, 0x1CFFFFF, 0x1EFFFFF,
     0x1FFFFFF};
 
-// função para adicionar a intensidade dos leds em cada frame
+// função para configurar a intensidade dos leds em cada frame
 double *apply_intensity_frame_pio(uint32_t frame, size_t total_frames, double intensity)
 {
-     
-    return 0;
+    double *frames = (double *)calloc(total_frames, sizeof(double));
+    
+    free(frames);
+    return frames;
 }
 
 ////////////////////////////////////////
