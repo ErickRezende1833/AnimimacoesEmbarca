@@ -1,4 +1,4 @@
-Animações Embarca
+# Animações Embarca
 
 Este projeto é focado no desenvolvimento de animações embarcadas utilizando sistemas de hardware e software integrados. Ele explora o uso de controladores embarcados para criar e controlar animações dinâmicas.
 
