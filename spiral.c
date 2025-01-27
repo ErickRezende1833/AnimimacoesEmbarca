@@ -13,7 +13,7 @@ double intensity = 0.2;
 uint8_t r = 0, g = 0, b = 255;
 
 // frames da animação espiral
-uint32_t spiral_animation_frames[26] = {
+uint32_t spiral_animation_frames[] = {
     0x0000000, 0x0001000, 0x0001800, 0x0001900, 0x0001980,
     0x00019C0, 0x00039C0, 0x00139C0, 0x00339C0, 0x00739C0,
     0x00F39C0, 0x00F3DC0, 0x00F3FC0, 0x00F3FC1, 0x00F3FC3,
