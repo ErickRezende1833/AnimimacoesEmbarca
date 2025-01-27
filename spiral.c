@@ -1,6 +1,7 @@
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
 #include <stdlib.h>
+#include "spiral.h"
 
 #ifndef NUM_PIXELS
 #define NUM_PIXELS 25
