@@ -27,7 +27,7 @@ A interação com a matriz de leds deve ser realizada com a ajuda de um keypad, 
 
 ## Video do teste
 
-https://youtu.be/NrECUlqrlL8
+https://drive.google.com/file/d/1fFTx5_r2S8maa2FCTMV7bcBZfXMTAcXQ/view?usp=sharing </br>
 
 
 ## Colaboradores
